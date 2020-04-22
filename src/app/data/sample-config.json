@@ -1,0 +1,6 @@
+{
+  "oAuth": "",
+  "server": "api.digitalocean.com/v2/",
+  "defaultSize": "c-4",
+  "defaultFloatingIp":""
+}

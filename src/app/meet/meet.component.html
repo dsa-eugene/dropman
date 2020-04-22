@@ -1,0 +1,32 @@
+<h3>Running Jitsi Servers</h3>
+
+<mat-card *ngFor="let drop of drops">
+  <mat-card-title>{{drop.name}}</mat-card-title>
+  Created: {{drop.created_at|date}}
+  Size: {{drop.size_slug}}
+  <mat-card-actions>
+    <button mat-flat-button
+            color="warn"
+            (click)="destroyDrop(drop)" >Destroy Jitsi Server</button>
+  </mat-card-actions>
+</mat-card>
+
+<div *ngIf="drops?.length === 0">None, create one below</div>
+
+<mat-spinner *ngIf="drops === null"></mat-spinner>
+
+<mat-divider></mat-divider>
+
+<h3>Snapshots</h3>
+
+<mat-card *ngFor="let snap of snaps">
+  <mat-card-title>{{snap.name}}</mat-card-title>
+  Created: {{snap.created_at|date}}
+  <mat-card-actions>
+    <button mat-flat-button
+            color="primary"
+            (click)="makeJitsiServer(snap.id)" >Launch Jitsi Server</button>
+  </mat-card-actions>
+</mat-card>
+
+<mat-spinner *ngIf="snaps === null"></mat-spinner>
