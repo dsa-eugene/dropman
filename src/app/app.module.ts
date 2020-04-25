@@ -17,13 +17,16 @@ import {FormsModule} from '@angular/forms';
 import { MeetComponent } from './meet/meet.component';
 import {MatTabsModule} from '@angular/material/tabs';
 import { LoginComponent } from './login/login.component';
+import {MatDialogModule} from '@angular/material/dialog';
+import { LoaderComponent } from './loader/loader.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     DashComponent,
     MeetComponent,
-    LoginComponent
+    LoginComponent,
+    LoaderComponent
   ],
   imports: [
     BrowserModule,
@@ -37,6 +40,7 @@ import { LoginComponent } from './login/login.component';
     MatButtonModule,
     MatProgressSpinnerModule,
     MatTabsModule,
+    MatDialogModule,
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
