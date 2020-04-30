@@ -61,7 +61,7 @@ export class MeetComponent implements OnInit {
           this.loading = false;
         });
       } else {
-        window.setTimeout(() => this.assignIp(dropletId), 1500);
+        window.setTimeout(() => this.assignIp(dropletId), 5000);
       }
     });
   }
@@ -69,7 +69,7 @@ export class MeetComponent implements OnInit {
   isDeleting = (dropletId: string, callback: any) => {
     this.apiService.getDrop(dropletId).subscribe(
       (dropletData: any) => {
-        window.setTimeout(() => this.isDeleting(dropletId, callback), 1500);
+        window.setTimeout(() => this.isDeleting(dropletId, callback), 5000);
       },
       () => callback());
   }
