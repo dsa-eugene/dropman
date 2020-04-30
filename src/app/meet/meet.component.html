@@ -1,34 +1,19 @@
-<h3>Running Jitsi Servers</h3>
+<div style="padding: 25px;">
+  <h3>Manage <a href="meet.dsaeugene.org" target="_blank">meet.dsaeugene.org</a></h3>
 
-<mat-card *ngFor="let drop of drops">
-  <mat-card-title>{{drop.name}}</mat-card-title>
-  Created: {{drop.created_at|date}}
-  Size: {{drop.size_slug}}
-  <mat-card-actions>
+  <button mat-flat-button
+          *ngFor="let drop of drops"
+          color="warn"
+          (click)="destroyDrop(drop)" >Shut down Jitsi Server: {{drop.name}}</button>
+
+  <div *ngIf="drops?.length === 0">
     <button mat-flat-button
-            color="warn"
-            (click)="destroyDrop(drop)" >Destroy Jitsi Server</button>
-  </mat-card-actions>
-</mat-card>
-
-<div *ngIf="drops?.length === 0">None, create one below</div>
-
-<mat-spinner *ngIf="drops === null"></mat-spinner>
-
-<mat-divider></mat-divider>
-
-<h3>Snapshots</h3>
-
-<mat-card *ngFor="let snap of snaps">
-  <mat-card-title>{{snap.name}}</mat-card-title>
-  Created: {{snap.created_at|date}}
-  <mat-card-actions>
-    <button mat-flat-button
+            *ngFor="let snap of snaps"
             color="primary"
-            (click)="makeJitsiServer(snap.id)" >Launch Jitsi Server</button>
-  </mat-card-actions>
-</mat-card>
+            (click)="makeJitsiServer(snap.id)" >Launch Jitsi Server: {{snap.name}}</button>
+  </div>
 
-<mat-spinner *ngIf="snaps === null"></mat-spinner>
+  <mat-spinner *ngIf="drops === null || snaps === null"></mat-spinner>
 
-<app-loader [open]="loading" [message]="loadingMessage"></app-loader>
+  <app-loader [open]="loading" [message]="loadingMessage"></app-loader>
+</div>

@@ -75,7 +75,7 @@ export class MeetComponent implements OnInit {
   }
 
   destroyDrop = (drop: Drop) => {
-    if (!confirm(`Are you sure you want to destroy ${drop.name}`)) {
+    if (!confirm(`Are you sure you want to shut down ${drop.name}`)) {
       return false;
     }
     this.loading = true;

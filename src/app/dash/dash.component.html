@@ -1,61 +1,65 @@
-<mat-divider></mat-divider>
+<div style="padding: 25px;">
 
-<h3>Running Servers</h3>
+  <mat-divider></mat-divider>
 
-<mat-card *ngFor="let drop of drops">
-  <mat-card-title>{{drop.name}}</mat-card-title>
-  Created: {{drop.created_at|date}}
-  Size: {{drop.size_slug}}
-  <mat-card-actions>
-    <button mat-flat-button
-            color="warn"
-            (click)="destroyDrop(drop)" >Destroy</button>
-  </mat-card-actions>
-</mat-card>
+  <h3>Running Servers</h3>
 
-<mat-spinner *ngIf="drops === null"></mat-spinner>
+  <mat-card *ngFor="let drop of drops">
+    <mat-card-title>{{drop.name}}</mat-card-title>
+    Created: {{drop.created_at|date}}
+    Size: {{drop.size_slug}}
+    <mat-card-actions>
+      <button mat-flat-button
+              color="warn"
+              (click)="destroyDrop(drop)" >Destroy</button>
+    </mat-card-actions>
+  </mat-card>
 
-<mat-divider></mat-divider>
+  <mat-spinner *ngIf="drops === null"></mat-spinner>
 
-<h3>Floating IPs</h3>
+  <mat-divider></mat-divider>
 
-<mat-card *ngFor="let floatingIp of floatingIps">
-  <mat-card-title>{{floatingIp.ip}}</mat-card-title>
-  Assigned to: {{floatingIp.droplet?.name}}
-  <mat-card-actions>
-    <select name="size-select"
-            #dropSelect>
-      <option *ngFor="let drop of drops" [value]="drop.id">{{drop.name}}</option>
-    </select>
-    <button mat-flat-button
-            color="primary"
-            (click)="assignIP(floatingIp, dropSelect.value)" >Assign</button>
-  </mat-card-actions>
-</mat-card>
+  <h3>Floating IPs</h3>
 
-<mat-spinner *ngIf="drops === null"></mat-spinner>
+  <mat-card *ngFor="let floatingIp of floatingIps">
+    <mat-card-title>{{floatingIp.ip}}</mat-card-title>
+    Assigned to: {{floatingIp.droplet?.name}}
+    <mat-card-actions>
+      <select name="size-select"
+              #dropSelect>
+        <option *ngFor="let drop of drops" [value]="drop.id">{{drop.name}}</option>
+      </select>
+      <button mat-flat-button
+              color="primary"
+              (click)="assignIP(floatingIp, dropSelect.value)" >Assign</button>
+    </mat-card-actions>
+  </mat-card>
 
-<mat-divider></mat-divider>
+  <mat-spinner *ngIf="drops === null"></mat-spinner>
 
-<h3>Snapshots</h3>
+  <mat-divider></mat-divider>
 
-<mat-card *ngFor="let snap of snaps">
-  <mat-card-title>{{snap.name}}</mat-card-title>
-  Created: {{snap.created_at|date}}
-  <mat-card-actions>
-    <button mat-flat-button
-            color="warn"
-            (click)="destroySnap(snap)" >Destroy</button>
-    <select name="size-select"
-            #sizeSelect>
-      <option *ngFor="let size of sizes"
-              [value]="size.slug"
-              [selected]="defaultSize === size.slug">{{size.slug}}</option>
-    </select>
-    <button mat-flat-button
-            color="primary"
-            (click)="makeDropFromSnap(snap.id, sizeSelect.value)" >Launch Droplet</button>
-  </mat-card-actions>
-</mat-card>
+  <h3>Snapshots</h3>
 
-<mat-spinner *ngIf="snaps === null"></mat-spinner>
+  <mat-card *ngFor="let snap of snaps">
+    <mat-card-title>{{snap.name}}</mat-card-title>
+    Created: {{snap.created_at|date}}
+    <mat-card-actions>
+      <button mat-flat-button
+              color="warn"
+              (click)="destroySnap(snap)" >Destroy</button>
+      <select name="size-select"
+              #sizeSelect>
+        <option *ngFor="let size of sizes"
+                [value]="size.slug"
+                [selected]="defaultSize === size.slug">{{size.slug}}</option>
+      </select>
+      <button mat-flat-button
+              color="primary"
+              (click)="makeDropFromSnap(snap.id, sizeSelect.value)" >Launch Droplet</button>
+    </mat-card-actions>
+  </mat-card>
+
+  <mat-spinner *ngIf="snaps === null"></mat-spinner>
+
+</div>
