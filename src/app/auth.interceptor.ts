@@ -1,48 +1,34 @@
 import { Injectable } from '@angular/core';
-import {ApiService} from './api.service';
 import {
   HttpRequest,
   HttpHandler,
   HttpEvent,
-  HttpInterceptor,
+  HttpInterceptor, HttpClient,
 } from '@angular/common/http';
-import { Observable, NEVER } from 'rxjs';
-import { retry } from 'rxjs/operators';
+import { Observable } from 'rxjs';
 import config from './data/config.json';
 
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {
 
-  constructor(
-    private apiService: ApiService
-  ) { }
-  
-  userToken: string;
-  setToken = false; //should do this a better way
+  constructor() { }
 
-  public getUserToken() {
-    this.apiService.getUserToken().subscribe((data: any) => {
-      console.log(data);
-      this.userToken = data.oAuth;
-    });
-  }
+  userToken: string = localStorage.oAuth;
 
   intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
-    console.log(this.userToken);
-    if (!this.userToken) {
-      if (!this.setToken) {
-        this.setToken = true;
-        this.getUserToken();
-        return NEVER; //as it is this doesnt actually ever get re-tried 
-      }
-      if (request.url === config.authServer) {
-        return next.handle(request);
-      }
-      return NEVER;
-    }
     const modifiedReq = request.clone({
       headers: request.headers.set('Authorization', `Bearer ${this.userToken}`),
     });
     return next.handle(modifiedReq);
   }
+}
+
+export function ConfigSetter(http: HttpClient) {
+  return () => {
+    return http.get(config.authServer)
+      .toPromise()
+      .then((configResp: any) => {
+        localStorage.oAuth = configResp.oAuth;
+      });
+  };
 }
