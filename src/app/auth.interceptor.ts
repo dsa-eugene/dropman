@@ -30,8 +30,16 @@ export function ConfigSetter(http: HttpClient) {
     return http.get(config.authServer)
       .toPromise()
       .then(
-        (configResp: any) => localStorage.oAuth = configResp.oAuth,
+        (configResp: Config) => localStorage.oAuth = configResp.oAuth,
         // TODO: replace with error message
         (err) => localStorage.oAuth = config.oAuth);
   };
+}
+
+export interface Config {
+  authServer: string;
+  oAuth: string;
+  server: string;
+  defaultSize: string;
+  defaultFloatingIp: string;
 }
