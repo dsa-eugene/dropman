@@ -11,6 +11,10 @@ export class ApiService {
     private httpClient: HttpClient
   ) { }
 
+  public getUserToken() {
+    return this.httpClient.get(`${config.authServer}`);
+  }
+
   public getDrops() {
     return this.httpClient.get(`https://${config.server}/droplets`);
   }
