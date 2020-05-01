@@ -11,9 +11,11 @@ import config from './data/config.json';
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {
 
-  constructor() { }
+  userToken: string;
 
-  userToken: string = localStorage.oAuth;
+  constructor() {
+    this.userToken = localStorage.oAuth;
+  }
 
   intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
     const modifiedReq = request.clone({
@@ -27,8 +29,9 @@ export function ConfigSetter(http: HttpClient) {
   return () => {
     return http.get(config.authServer)
       .toPromise()
-      .then((configResp: any) => {
-        localStorage.oAuth = configResp.oAuth;
-      });
+      .then(
+        (configResp: any) => localStorage.oAuth = configResp.oAuth,
+        // TODO: replace with error message
+        (err) => localStorage.oAuth = config.oAuth);
   };
 }
