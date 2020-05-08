@@ -45,5 +45,3 @@ testem.log
 .DS_Store
 Thumbs.db
 /src/app/data/config.json
-/wp-dropman/config.php
-
