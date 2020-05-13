@@ -1,19 +1,55 @@
 <div style="padding: 25px;">
-  <h3>Manage <a href="https://meet.dsaeugene.org" target="_blank">meet.dsaeugene.org</a></h3>
+  <h1>Managing Jitsi server at <a href="https://meet.dsaeugene.org" target="_blank">meet.dsaeugene.org</a></h1>
 
-  <button mat-flat-button
-          *ngFor="let drop of drops"
+  <div *ngIf="drops?.length !== 0">
+    <mat-card *ngFor="let drop of drops">
+      <mat-card-header>
+        <div mat-card-avatar style="margin-right: -30px;">&gt;&gt;</div>
+        <mat-card-title>
+          A Jitsi server is currently up and running!
+        </mat-card-title>
+        <mat-card-subtitle>
+          Its name is {{drop.name}}.
+        </mat-card-subtitle>
+      </mat-card-header>
+      <mat-card-content>
+        <p>
+          You can shut it down. Please do so after use! (And not during use!) 
+        </p>
+      </mat-card-content>
+      <mat-card-actions>
+        <button mat-flat-button
           color="warn"
-          (click)="destroyDrop(drop)" >Shut down Jitsi Server: {{drop.name}}</button>
+          (click)="destroyDrop(drop)" 
+        >Shut down Jitsi Server: {{drop.name}}</button>
+      </mat-card-actions>
+    </mat-card>
+  </div>
 
   <div *ngIf="drops?.length === 0">
-    <button mat-flat-button
-            *ngFor="let snap of snaps"
-            color="primary"
-            (click)="makeJitsiServer(snap.id)" >Launch Jitsi Server: {{snap.name}}</button>
+    <mat-card *ngFor="let snap of snaps">
+      <mat-card-header>
+        <div mat-card-avatar style="margin-right: -30px;">&gt;&gt;</div>
+        <mat-card-title>
+          Currently, no Jitsi servers are running.
+        </mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <p>
+          You can start one! Its name will be {{snap.name}}. Cute, isn't it?
+        </p>
+      </mat-card-content>
+      <mat-card-actions>
+        <button mat-flat-button
+          color="primary"
+          (click)="makeJitsiServer(snap.id)" 
+        >Launch Jitsi Server: {{snap.name}}</button>
+      </mat-card-actions>
+    </mat-card>
   </div>
 
   <mat-spinner *ngIf="drops === null || snaps === null"></mat-spinner>
-
+  
   <app-loader [open]="loading" [message]="loadingMessage"></app-loader>
+
 </div>

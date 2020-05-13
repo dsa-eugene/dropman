@@ -1,7 +1,7 @@
 {
   "authServer": "http://localhost/wp-content/plugins/wp-dropman/api.php",
   "oAuth": "",
-  "server": "api.digitalocean.com/v2/",
+  "server": "api.digitalocean.com/v2",
   "defaultSize": "c-4",
   "defaultFloatingIp":""
 }
